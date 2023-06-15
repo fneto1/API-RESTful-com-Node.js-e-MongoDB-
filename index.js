@@ -1,4 +1,5 @@
 //configurações iniciais
+require('dotenv').config()
 const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
@@ -31,7 +32,11 @@ app.get('/', (req, res) => {
 
 
 //entregar uma porta 
-mongoose.connect('mongodb+srv://root:root@apicluster.r6lekxx.mongodb.net/bancodaapi?retryWrites=true&w=majority')
+
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = process.env.DB_PASSWORD
+
+mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@apicluster.r6lekxx.mongodb.net/bancodaapi?retryWrites=true&w=majority`)
 .then(() => {
     console.log('Conectamos ao mongoDB');
     app.listen(3000)
